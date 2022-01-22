@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>AdminController</title>
+</head>
+<body>
+<div class="box">
+  <form action="welcome" method="POST">
+    <span class="text-center">Welcome <spam th:text="${name}" /></span>
+    <p class="marks">
+      Maths: <spam th:text="${maths}" /> Physics: <span  th:text="${physics}"/> Chemistry: <span th:text="${chemistry}"/>
+    </p>
+    <fieldset class="more-info">
+      <legend>
+        Choose a subject for more information
+      </legend>
+      <input type="radio" name="subject" value="Maths" checked="checked"/>
+      <label class="calc"> Maths</label>
+      <input type="radio" name="subject" value="Physics"/>
+      <label class="calc"> Physics</label>
+      <input type="radio" name="subject" value="Chemistry"/>
+      <label class="calc"> Chemistry</label>
+    </fieldset>
+    <div class="more-info-result">
+      <spam th:text="${avg}" /><br/><br/>
+      <spam th:text="${med}" /><br/><br/>
+      <spam th:text="${max}" /><br/><br/>
+      <spam th:text="${min}" />
+    </div>
+    <input class="btn" type="submit" value="submit">
+  </form>
+
+</div>
+</body>
+<style>
+  body {
+    background-image: url("https://resources.urionlinejudge.com.br/judge/img/5.0/background-houses.png");
+    background-position: center;
+    background-origin: content-box;
+    min-height: 100vh;
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0;
+  }
+
+  .box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7); /*last one(.7) is for obacity*/
+    border-radius: 3px;
+    padding: 70px 100px;
+  }
+
+  .text-center {
+    color: #fff;
+    font-size: 23px;
+    margin: -50px 0 20px 0;
+    display: block;
+    text-align: center;
+  }
+
+  .calc {
+    font-size: 16px;
+  }
+
+  .marks {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .more-info {
+    color: #fff;
+    font-size: 20px;
+    margin: 20px 0 20px 0;
+    display: block;
+    text-align: center;
+    width: 400px;
+  }
+
+  .more-info-result {
+    color: #fff;
+    ont-size: 16px;
+    display: block;
+    text-align: center;
+  }
+
+  .input-container {
+    position: relative;
+    margin-bottom: 25px;
+  }
+
+  .input-container label {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .input-container input {
+    border: 0;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    width: 100%;
+    padding: 8px 0 5px 0;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  .input-container input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #e74c3c;
+  }
+
+  .input-container input:focus ~ label,
+  .input-container input:valid ~ label {
+    top: -12px;
+    font-size: 12px;
+
+  }
+
+  .btn {
+    color: #fff;
+    background-color: #e74c3c;
+    outline: none;
+    border: 0;
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    border-radius: 2px;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -10%);
+
+  }
+
+  .btn:hover {
+    filter: brightness(130%)
+  }
+
+  .btn:active {
+    filter: brightness(50%);
+  }
+</style>
+</html>

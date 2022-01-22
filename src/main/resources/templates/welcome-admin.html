@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome admin</title>
+</head>
+<body>
+<form action="exportSchema" method="POST">
+    <span class="text-center">Export DataBase schema</span>
+    <div class="input-container">
+        <input name="path" type="text" required="true"/>
+        <label>path</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<form action="importSchema" method="POST">
+    <span class="text-center">Import DataBase schema</span>
+    <div class="input-container">
+        <input name="path" type="text" required="true"/>
+        <label>path</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<form action="addUser" method="POST">
+    <span class="text-center">Add User</span>
+    <div class="input-container">
+        <input name="username" type="text" required="true"/>
+        <label>username</label>
+    </div>
+    <div class="input-container">
+        <input name="password" type="text" required="true"/>
+        <label>password</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+<form action="giveUserWrite" method="POST">
+    <span class="text-center">Give a user write</span>
+    <div class="input-container">
+        <input name="username" type="text" required="true"/>
+        <label>username</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<form action="addToDataBase" method="POST">
+    <span class="text-center">Add to DataBase</span>
+    <div class="input-container">
+        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>
+        <label>jsonSource</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<form action="createSchema" method="POST">
+    <span class="text-center">Create Schema</span>
+    <div class="input-container">
+        <input name="schema" type="text" required="true"/>
+        <label>schema</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+
+<form action="addToSchema" method="POST">
+    <span class="text-center">Add to a schema</span>
+    <div class="input-container">
+        <input name="schema" type="text" required="true"/>
+        <label>schema</label>
+    </div>
+    <div class="input-container">
+        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>
+        <label>jsonSource</label>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
+</body>
+</html>
