@@ -30,6 +30,11 @@ public class AdminController {
     return "/welcome-admin";
   }
 
+  @GetMapping(value = "welcomeUser")
+  public String welcomeUser(){
+    return "redirect:/resetpass";
+  }
+
   @PostMapping(value = "/login")
   public String cred(@ModelAttribute User user, Model model) {
     System.out.println(user.getPassword());
@@ -63,12 +68,14 @@ public class AdminController {
     }
     return "redirect:/welcome-admin";
   }
+
   @PostMapping(value = "importSchema")
   public String importSchema(@RequestParam(name = "path") String importPath) {
     System.out.println(importPath);
     dao.importDataAndClearExisting(importPath);
     return "redirect:/welcome-admin";
   }
+
   @PostMapping(value = "addUser")
   public String addUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String pass) {
    admin.addUser(username,pass);
@@ -77,12 +84,14 @@ public class AdminController {
     System.out.println(u.getUsername());
     return "redirect:/welcome-admin";
   }
+
   @PostMapping(value = "giveUserWrite")
   public String giveUserWrite(@RequestParam(name = "username") String username) {
     System.out.println(username);
     admin.giveUserWritePrivilege(username);
     return "redirect:/welcome-admin";
   }
+
   @PostMapping(value = "addToDataBase")
   public String addToDataBase(@RequestParam(name = "jsonSource") String jsonSource) {
     System.out.println(jsonSource);
@@ -94,24 +103,25 @@ public class AdminController {
     }
     return "redirect:/welcome-admin";
   }
-  @PostMapping(value = "createSchema")
-  public String createSchema(@RequestParam(name = "schema") String schema) {
-    System.out.println(schema);
-    dao.createSchema(schema);
-    return "redirect:/welcome-admin";
-  }
 
-  @PostMapping(value = "addToSchema")
-  public String addToSchema(@RequestParam(name = "jsonSource") String jsonSource) {
-    System.out.println(jsonSource);
-    try{
-      dao.storeJson(jsonSource);
-    }catch (JsonProcessingException e){
-      System.out.println(e);
-      System.out.println("bad Json Source");
-    }
-    return "redirect:/welcome-admin";
-  }
+//  @PostMapping(value = "createSchema")
+//  public String createSchema(@RequestParam(name = "schema") String schema) {
+//    System.out.println(schema);
+//    dao.createSchema(schema);
+//    return "redirect:/welcome-admin";
+//  }
+//
+//  @PostMapping(value = "addToSchema")
+//  public String addToSchema(@RequestParam(name = "jsonSource") String jsonSource) {
+//    System.out.println(jsonSource);
+//    try{
+//      dao.storeJson(jsonSource);
+//    }catch (JsonProcessingException e){
+//      System.out.println(e);
+//      System.out.println("bad Json Source");
+//    }
+//    return "redirect:/welcome-admin";
+//  }
 
 
 }

@@ -1,7 +1,7 @@
-{"author":"hazem","date":"2022","title":"maths","body":"maths is maths","id":0}
-{"author":"yaseen","date":"2022","title":"maths","body":"maths is maths","id":1}
-{"author":"omar","date":"2022","title":"maths","body":"maths is maths","id":2}
-{"author":"hazem","date":"1111","title":"maths","body":"maths is maths","id":3}
-{"author":"hazem","date":"2002","title":"maths","body":"maths is maths","id":4}
-{"author":"hazem","date":"2040","title":"maths","body":"maths is maths","id":5}
-{"author":"hazem","date":"2069","title":"maths","body":"maths is maths","id":6}
+{"author":"ahmad","schema":"book","date":"2022","subject":"maths","body":"maths is maths","id":0}
+{"author":"yaseen","schema":"paper","date":"2022","subject":"physics","body":"maths is maths","id":1}
+{"author":"omar","schema":"book","date":"2022","subject":"chemistry","body":"maths is maths","id":2}
+{"author":"yosef","schema":"book","date":"1111","subject":"politics","body":"maths is maths","id":3}
+{"author":"ahmad","schema":"paper","date":"2002","subject":"sports","body":"maths is maths","id":4}
+{"author":"mohammed","schema":"paper","date":"2040","subject":"chemistry","body":"maths is maths","id":5}
+{"author":"mosa","schema":"book","date":"2069","subject":"maths","body":"maths is maths","id":6}

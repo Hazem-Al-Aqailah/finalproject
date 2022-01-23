@@ -5,6 +5,7 @@
     <title>welcome admin</title>
 </head>
 <body>
+<div class="box">
 <form action="exportSchema" method="POST">
     <span class="text-center">Export DataBase schema</span>
     <div class="input-container">
@@ -13,7 +14,7 @@
     </div>
     <button type="submit" class="btn">Submit</button>
 </form>
-
+    <hr/>
 <form action="importSchema" method="POST">
     <span class="text-center">Import DataBase schema</span>
     <div class="input-container">
@@ -22,7 +23,7 @@
     </div>
     <button type="submit" class="btn">Submit</button>
 </form>
-
+<hr/>
 <form action="addUser" method="POST">
     <span class="text-center">Add User</span>
     <div class="input-container">
@@ -35,6 +36,7 @@
     </div>
     <button type="submit" class="btn">Submit</button>
 </form>
+    <hr/>
 <form action="giveUserWrite" method="POST">
     <span class="text-center">Give a user write</span>
     <div class="input-container">
@@ -43,7 +45,7 @@
     </div>
     <button type="submit" class="btn">Submit</button>
 </form>
-
+    <hr/>
 <form action="addToDataBase" method="POST">
     <span class="text-center">Add to DataBase</span>
     <div class="input-container">
@@ -52,27 +54,129 @@
     </div>
     <button type="submit" class="btn">Submit</button>
 </form>
-
-<form action="createSchema" method="POST">
-    <span class="text-center">Create Schema</span>
-    <div class="input-container">
-        <input name="schema" type="text" required="true"/>
-        <label>schema</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-
-<form action="addToSchema" method="POST">
-    <span class="text-center">Add to a schema</span>
-    <div class="input-container">
-        <input name="schema" type="text" required="true"/>
-        <label>schema</label>
-    </div>
-    <div class="input-container">
-        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>
-        <label>jsonSource</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
+    <hr/>
+<!--<form action="createSchema" method="POST">-->
+<!--    <span class="text-center">Create Schema</span>-->
+<!--    <div class="input-container">-->
+<!--        <input name="schema" type="text" required="true"/>-->
+<!--        <label>schema</label>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn">Submit</button>-->
+<!--</form>-->
+<!--    <hr/>-->
+<!--<form action="addToSchema" method="POST">-->
+<!--    <span class="text-center">Add to a schema</span>-->
+<!--    <div class="input-container">-->
+<!--        <input name="schema" type="text" required="true"/>-->
+<!--        <label>schema</label>-->
+<!--    </div>-->
+<!--    <div class="input-container">-->
+<!--        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>-->
+<!--        <label>jsonSource</label>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn">Submit</button>-->
+<!--</form>-->
+</div>
 </body>
+<style>
+    body {
+        background-image: url("https://resources.urionlinejudge.com.br/judge/img/5.0/background-houses.png");
+        background-position: center;
+        background-origin: content-box;
+        max-height: 100vh;
+        font-family: 'Noto Sans', sans-serif;
+        margin: 0;
+    }
+
+    .text-center {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 20px;
+        margin: -0px 0 20px 0;
+        display: block;
+        text-align: center;
+    }
+
+    .error {
+        color: #ffffff;
+        background-color: red;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        font-size: 12px;
+        display: block;
+        text-align: center;
+    }
+
+    .box {
+        position: absolute;
+        left: 50%;
+        top: 80%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7); /*last one(.7) is for obacity*/
+        border-radius: 3px;
+        padding: 30px 100px;
+        display: block;
+        /*flex-direction: column;*/
+    }
+
+    .input-container {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    .input-container label {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        font-size: 16px;
+        color: #fff;
+        pointer-events: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .input-container input {
+        border: 0;
+        border-bottom: 1px solid #555;
+        background: transparent;
+        width: 100%;
+        padding: 8px 0 5px 0;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .input-container input:focus {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #e74c3c;
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:valid ~ label {
+        top: -12px;
+        font-size: 12px;
+
+    }
+
+    .btn {
+        color: #fff;
+        background-color: #e74c3c;
+        outline: none;
+        border: 0;
+        color: #fff;
+        padding: 10px 20px;
+        text-transform: uppercase;
+        margin-top: 5px;
+        border-radius: 2px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .btn:hover {
+        filter: brightness(130%)
+    }
+
+    .btn:active {
+        filter: brightness(50%);
+    }
+</style>
 </html>

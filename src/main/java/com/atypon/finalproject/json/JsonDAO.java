@@ -27,7 +27,7 @@ public class JsonDAO {
 
   private static final HashMap<String, ArrayList<String>> schemaIndex = new HashMap<>();
 
-  private static final HashMap<String, ArrayList<JsonNode>> nameIndex = new HashMap<>();
+  private static final HashMap<String, ArrayList<String>> nameIndex = new HashMap<>();
 
   private static final HashMap<String, User> users = new HashMap<>();
 
@@ -90,61 +90,77 @@ public class JsonDAO {
     nameIndex.clear();
     for (JsonNode j : DB2.values()) {
       String name = j.get("author").asText();
+      String id = j.get("id").asText();
       if (nameIndex.containsKey(name)) {
-        nameIndex.get(name).add(j);
+        nameIndex.get(name).add(id);
       }
-      JsonDAO.addToListOfIndexedName(name, j);
+      JsonDAO.addToListOfIndexedProperty(name, id,nameIndex);
+    }
+  }
+
+  private static void indexSchema(){
+    schemaIndex.clear();
+    for (JsonNode j : DB2.values()) {
+      String schema = j.get("schema").asText();
+      String id = j.get("id").asText();
+      if (schemaIndex.containsKey(schema)) {
+        schemaIndex.get(schema).add(id);
+      }
+      JsonDAO.addToListOfIndexedProperty(schema, id,schemaIndex);
     }
   }
   //used in indexName method
-  private static void addToListOfIndexedName(String key, JsonNode item) {
-    ArrayList<JsonNode> itemsList = nameIndex.get(key);
-
+  private static void addToListOfIndexedProperty(String indexedValue, String item, HashMap<String, ArrayList<String>> indexedMap) {
+    ArrayList<String> itemsList = indexedMap.get(indexedValue);
     // if list does not exist create it
     if (itemsList == null) {
-      itemsList = new ArrayList<JsonNode>();
+      itemsList = new ArrayList<String>();
       itemsList.add(item);
-      nameIndex.put(key, itemsList);
+      indexedMap.put(indexedValue, itemsList);
     } else {
       // add if item is not already in list
       if (!itemsList.contains(item)) itemsList.add(item);
     }
   }
 
-  public ArrayList<JsonNode> findByName(String name) {
-    return nameIndex.get(name);
+  public List<JsonNode> findByName(String name) {
+    return getJsonNodes(name, nameIndex);
   }
 
-  public void createSchema(String schemaName) {
-    ArrayList<String> schemaArray = new ArrayList<>();
-    schemaIndex.put(schemaName, schemaArray);
+  public List<JsonNode> findBySchema(String schema) {
+    return getJsonNodes(schema, schemaIndex);
   }
 
-  public void addToSchema(String schemaName, JsonNode node) {
-    try {
-      storeJson(node);
-      schemaIndex.get(schemaName).add(node.get("id").asText());
-
-    } catch (Exception e) {
-      System.out.println("no such schema were found");
-      System.out.println(e);
-    }
-  }
-
-  public List<JsonNode> findJsonBySchema(String schemaName) {
+  private List<JsonNode> getJsonNodes(String indexedValue, HashMap<String, ArrayList<String>> indexedMap) {
     ArrayList<JsonNode> output = new ArrayList<>();
     try {
-      ArrayList<String> idList = schemaIndex.get(schemaName);
+      ArrayList<String> idList = indexedMap.get(indexedValue);
       for (String i : idList) {
         output.add(DB2.get(i));
       }
       return output;
     } catch (Exception e) {
-      System.out.println("No such schema");
+      System.out.println("no such schema or name");
       System.out.println(e);
     }
     return output;
   }
+
+//  public void createSchema(String schemaName) {
+//    ArrayList<String> schemaArray = new ArrayList<>();
+//    schemaIndex.put(schemaName, schemaArray);
+//  }
+
+//  public void addToSchema(String schemaName, JsonNode node) {
+//    try {
+//      storeJson(node);
+//      schemaIndex.get(schemaName).add(node.get("id").asText());
+//
+//    } catch (Exception e) {
+//      System.out.println("no such schema were found");
+//      System.out.println(e);
+//    }
+//  }
 
   public void exportSchema(String schemaName) throws IOException {
     FileUtils.writeLines(
@@ -179,6 +195,7 @@ public class JsonDAO {
         generatedId = Long.parseLong(node.get("id").asText());
       }
       indexName();
+      indexSchema();
       scanner.close();
 
     } catch (Exception FileNotFoundException) {

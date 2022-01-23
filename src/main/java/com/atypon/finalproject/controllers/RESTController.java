@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +23,17 @@ public class RESTController {
   }
 
   @GetMapping("byname/{name}")
-  public ResponseEntity<ArrayList> findByName(@PathVariable String name) {
-    ArrayList<JsonNode> node = dao.findByName(name);
+  public ResponseEntity<List> findByName(@PathVariable String name) {
+    List<JsonNode> node = dao.findByName(name);
+    if (node == null) {
+      return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+    }
+    return ResponseEntity.ok(node);
+  }
+
+  @GetMapping("byschema/{schema}")
+  public ResponseEntity<List> findBySchema(@PathVariable String schema) {
+    List<JsonNode> node = dao.findBySchema(schema);
     if (node == null) {
       return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
@@ -59,6 +67,7 @@ public class RESTController {
     }
     return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
   }
+
   @PutMapping("/update/{id}")
   public ResponseEntity<String> updateJson(@PathVariable String id, @Validated @RequestBody String newJson) throws JsonProcessingException {
     if (dao.containsJson(id)) {
