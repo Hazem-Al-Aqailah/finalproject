@@ -35,28 +35,28 @@ public class Json {
     return json;
   }
 
-  public static <A> A fromJson(JsonNode node, Class<A> clazz) throws JsonProcessingException {
-    return objectMapper.treeToValue(node, clazz);
-  }
-
-  public static String getJsonSchema(Class clazz) throws IOException {
-    Field[] fields = clazz.getDeclaredFields();
-    List<Map<String,String>> map=new ArrayList<Map<String,String>>();
-    for (Field field : fields) {
-      HashMap<String, String> objMap=new  HashMap<String, String>();
-      objMap.put("", field.getName());
-      objMap.put("type", field.getType().getSimpleName());
-      objMap.put("format", "");
-      map.add(objMap);
-    }
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(map);
-
-    return json;
-  }
-
-  public static JsonNode toJson(Object a) {
-    return objectMapper.valueToTree(a);
-  }
+//  public static <A> A fromJson(JsonNode node, Class<A> clazz) throws JsonProcessingException {
+//    return objectMapper.treeToValue(node, clazz);
+//  }
+//
+//  public static String getJsonSchema(Class clazz) throws IOException {
+//    Field[] fields = clazz.getDeclaredFields();
+//    List<Map<String,String>> map=new ArrayList<Map<String,String>>();
+//    for (Field field : fields) {
+//      HashMap<String, String> objMap=new  HashMap<String, String>();
+//      objMap.put("", field.getName());
+//      objMap.put("type", field.getType().getSimpleName());
+//      objMap.put("format", "");
+//      map.add(objMap);
+//    }
+//    ObjectMapper mapper = new ObjectMapper();
+//    String json = mapper.writeValueAsString(map);
+//
+//    return json;
+//  }
+//
+//  public static JsonNode toJson(Object a) {
+//    return objectMapper.valueToTree(a);
+//  }
 
 }

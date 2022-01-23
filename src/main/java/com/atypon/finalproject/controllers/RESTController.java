@@ -22,24 +22,6 @@ public class RESTController {
     return dao.retrieveAll();
   }
 
-  @GetMapping("byname/{name}")
-  public ResponseEntity<List> findByName(@PathVariable String name) {
-    List<JsonNode> node = dao.findByName(name);
-    if (node == null) {
-      return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-    }
-    return ResponseEntity.ok(node);
-  }
-
-  @GetMapping("byschema/{schema}")
-  public ResponseEntity<List> findBySchema(@PathVariable String schema) {
-    List<JsonNode> node = dao.findBySchema(schema);
-    if (node == null) {
-      return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-    }
-    return ResponseEntity.ok(node);
-  }
-
   @GetMapping("/{id}")
   public ResponseEntity<JsonNode> findById(@PathVariable String id) {
     JsonNode node = dao.findById(id);
