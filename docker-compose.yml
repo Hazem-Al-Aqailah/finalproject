@@ -1,0 +1,10 @@
+version: '3'
+services:
+  finalproject:
+    build: finalproject/
+    ports:
+      - "8050:8080"
+  node:
+    build: node/
+    ports:
+      - "8060:8080"
