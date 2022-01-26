@@ -35,3 +35,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]
 
 #FROM openjdk:12
 #COPY target/finalproject-0.0.1-SNAPSHOT.jar finalproject-0.0.1-SNAPSHOT.jar
+#version: '3'
+#services:
+#  finalproject:
+#    build: finalproject/
+#    ports:
+#      - "8050:8080"
+#  node:
+#    build: node/
+#    ports:
+#      - "8060:8080"
