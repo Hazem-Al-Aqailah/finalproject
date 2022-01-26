@@ -1,60 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>welcome admin</title>
 </head>
 <body>
 <div class="box">
-<form action="exportSchema" method="POST">
-    <span class="text-center">Export DataBase schema</span>
-    <div class="input-container">
-        <input name="path" type="text" required="true"/>
-        <label>path</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-    <hr/>
-<form action="importSchema" method="POST">
-    <span class="text-center">Import DataBase schema</span>
-    <div class="input-container">
-        <input name="path" type="text" required="true"/>
-        <label>path</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-<hr/>
-<form action="addUser" method="POST">
-    <span class="text-center">Add User</span>
-    <div class="input-container">
-        <input name="username" type="text" required="true"/>
-        <label>username</label>
-    </div>
-    <div class="input-container">
-        <input name="password" type="text" required="true"/>
-        <label>password</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-    <hr/>
-<form action="giveUserWrite" method="POST">
-    <span class="text-center">Give a user write</span>
-    <div class="input-container">
-        <input name="username" type="text" required="true"/>
-        <label>username</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-    <hr/>
-<form action="addToDataBase" method="POST">
-    <span class="text-center">Add to DataBase</span>
-    <div class="input-container">
-        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>
-        <label>jsonSource</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
-</form>
-    <hr/>
+    <form action="exportSchema" method="POST">
+        <span class="text-center">Export DataBase schema</span>
+        <p class="error" th:text="${errorMessage}"></p>
+        <div class="input-container">
+            <input name="path" type="text" required="true">
+            <label>filename and type</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="importSchema" method="POST">
+        <span class="text-center">Import DataBase schema</span>
+        <div class="input-container">
+            <input name="path" type="text" required="true">
+            <label>filename and type</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="addUser" method="POST">
+        <span class="text-center">Add User</span>
+        <div class="input-container">
+            <input name="username" type="text" required="true">
+            <label>username</label>
+        </div>
+        <div class="input-container">
+            <input name="password" type="text" required="true">
+            <label>password</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="giveUserWrite" method="POST">
+        <span class="text-center">Give a user write</span>
+        <div class="input-container">
+            <input name="username" type="text" required="true">
+            <label>username</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="addToDataBase" method="POST">
+        <span class="text-center">Add to DataBase</span>
+        <div class="input-container">
+            <textarea name="jsonSource" rows="10" cols="50" required="true"></textarea>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="deleteFromDataBase" method="POST">
+        <span class="text-center">Delete from Database</span>
+        <div class="input-container">
+            <input name="id" type="text" required="true">
+            <label>ID</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
+    <hr>
+    <form action="updateJson" method="POST">
+        <span class="text-center">Update Json</span>
+        <div class="input-container">
+            <input name="id" type="text" required="true">
+            <label>ID</label>
+        </div>
+        <div class="input-container">
+            <textarea name="jsonSource" rows="10" cols="50" required="true"></textarea>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+    <hr>
 </div>
 </body>
 <style>

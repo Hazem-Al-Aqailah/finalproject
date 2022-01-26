@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
-    <title>Welcome User</title>
+    <title>welcome user</title>
 </head>
 <body>
-<div class="box">
-
+<div class = "box">
+<form action="addToDataBaseUser" method="POST">
+    <span class="text-center">Add to DataBase</span>
+    <div class="input-container">
+        <textarea name="jsonSource" rows="10" cols="50"  required="true"></textarea>
+    </div>
+    <button type="submit" class="btn">Submit</button>
+</form>
 </div>
 </body>
 <style>

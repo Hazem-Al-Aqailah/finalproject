@@ -32,8 +32,7 @@ public class RESTController {
   }
 
   @PostMapping("/post")
-  public ResponseEntity<String> addToDB(@Validated @RequestBody String jsonSource)
-      throws JsonProcessingException {
+  public ResponseEntity<String> addToDB(@Validated @RequestBody String jsonSource) {
     if (jsonSource == null) {
       return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
@@ -51,7 +50,7 @@ public class RESTController {
   }
 
   @PutMapping("/update/{id}")
-  public ResponseEntity<String> updateJson(@PathVariable String id, @Validated @RequestBody String newJson) throws JsonProcessingException {
+  public ResponseEntity<String> updateJson(@PathVariable String id, @Validated @RequestBody String newJson) {
     if (dao.containsJson(id)) {
       dao.updateJson(id,newJson);
       return ResponseEntity.ok(id);

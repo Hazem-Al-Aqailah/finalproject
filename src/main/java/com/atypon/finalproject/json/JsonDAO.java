@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.util.Scanner;
 
 @Repository
 @Profile("database")
-public class JsonDAO {
+public class JsonDAO implements DAOInterface {
   @JsonProperty private static long JsonId = 0;
 
   private static final HashMap<String, JsonNode> DB2 = new HashMap<>();
@@ -30,25 +29,35 @@ public class JsonDAO {
   private static final JsonDAO dao = new JsonDAO();
 
   @Autowired
-  private JsonDAO(){
+  private JsonDAO() {
     importDataAndClearExisting("DataBaseSchema.txt");
+    User u = new User("admin", "admin");
+    u.setAdmin(true);
+    users.put("admin", u);
   }
 
-  public static JsonDAO getInstance(){
+  public static JsonDAO getInstance() {
     return dao;
   }
 
-  public User getUser (String user){
+  @Override
+  public User getUser(String user) {
     return users.get(user);
   }
 
-  public synchronized void addUsers(User... user){
-    for (User u:user){
-      users.put(u.getUsername(),u);
+  @Override
+  public synchronized void addUsers(User user) {
+    users.put(user.getUsername(), user);
+    for (User u : users.values()) {
+      System.out.println(u.getUsername());
     }
   }
 
-  public synchronized static long generateId() {
+  public boolean containUser(String username){
+    return users.containsKey(username);
+  }
+
+  public static synchronized long generateId() {
     return JsonId++;
   }
 
@@ -56,30 +65,51 @@ public class JsonDAO {
     JsonId = 0;
   }
 
-  public synchronized void storeJson(String... jsons) throws JsonProcessingException {
-    for (String j : jsons) {
-      JsonNode node = Json.parseAndGenerateId(j);
-      DB2.put(node.get("id").asText(), node);
+  @Override
+  public synchronized void storeJson(String... jsons) {
+    try {
+      for (String j : jsons) {
+        JsonNode node = Json.parseAndGenerateId(j);
+        DB2.put(node.get("id").asText(), node);
+      }
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+      System.out.println("error during parsing the json ");
     }
   }
 
-  public synchronized void deleteJson(String id){
+  @Override
+  public synchronized void deleteJson(String id) {
     DB2.remove(id);
   }
 
-  public boolean containsJson(String id){return DB2.containsKey(id);}
-
-  public synchronized void  updateJson(String id, String json) throws JsonProcessingException {
-    DB2.replace(id, Json.parse(json));
+  @Override
+  public boolean containsJson(String id) {
+    return DB2.containsKey(id);
   }
 
+  @Override
+  public synchronized void updateJson(String id, String json) {
+    try {
+      DB2.replace(id, Json.parse(json));
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+      System.out.println("error during parsing the json ");
+    }
+  }
   // import/export database schema
-  public synchronized void exportDataBaseSchema(String path) throws IOException {
-    FileUtils.writeLines(new File(path), retrieveAll());
+  @Override
+  public synchronized void exportDataBaseSchema(String path) {
+    try {
+      FileUtils.writeLines(new File(path), retrieveAll());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
+  @Override
   public synchronized void importDataAndClearExisting(String path) {
-    try(Scanner scanner = new Scanner(new FileReader(path))) {
+    try (Scanner scanner = new Scanner(new FileReader(path))) {
       DB2.clear();
       resetId();
       while (scanner.hasNextLine()) {
@@ -90,10 +120,11 @@ public class JsonDAO {
       }
     } catch (Exception FileNotFoundException) {
       System.out.println("no such file exits");
-      System.out.println(FileNotFoundException);
+      FileNotFoundException.printStackTrace();
     }
   }
 
+  @Override
   public List<JsonNode> retrieveAll() {
     return new ArrayList<>(DB2.values());
   }
@@ -101,5 +132,4 @@ public class JsonDAO {
   public static JsonNode findById(String id) {
     return DB2.get(id);
   }
-
 }

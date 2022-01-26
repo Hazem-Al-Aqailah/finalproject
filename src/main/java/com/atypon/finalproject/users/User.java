@@ -5,6 +5,7 @@ public class User {
   protected String password ;
   protected boolean canWrite = false;
   protected boolean isAdmin = false;
+  private boolean firstLogin = true;
 
   public User(String username, String password) {
     this.username = username;
@@ -42,6 +43,15 @@ public class User {
   public void setAdmin(boolean admin) {
     isAdmin = admin;
   }
+
+  public boolean isFirstLogin(){
+    return firstLogin;
+  }
+
+  public void setFirstLogin(boolean firstLoginBoolean) {
+    firstLogin = firstLoginBoolean;
+  }
+
 
 
 }

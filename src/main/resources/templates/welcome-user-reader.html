@@ -2,28 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ResetPass</title>
+    <title>welcome user</title>
 </head>
 <body>
-<div class="box">
-    <form action="resetpass" method="POST">
-        <span class="text-center">Reset Password</span>
-        <p class="error" th:text="${errorMessage}"/>
-        <div class="input-container">
-            <input name="username" type="text" required="true"/>
-            <label>username</label>
-        </div>
-        <div class="input-container">
-            <input name="oldpassword" type="text" required="true"/>
-            <label>old password</label>
-        </div>
-        <div class="input-container">
-            <input name="newpassword" type="text" required="true"/>
-            <label>new password</label>
-        </div>
-        <button type="submit" class="btn">Login</button>
-    </form>
-</div>
+<div class="box"></div>
 </body>
 <style>
     body {
