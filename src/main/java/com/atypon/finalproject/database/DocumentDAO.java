@@ -1,6 +1,7 @@
-package com.atypon.finalproject.json;
+package com.atypon.finalproject.database;
 
-import com.atypon.finalproject.users.User;
+import com.atypon.finalproject.parser.Json;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,50 +20,28 @@ import java.util.Scanner;
 
 @Repository
 @Profile("database")
-public class JsonDAO implements DAOInterface {
-  @JsonProperty private static long JsonId = 0;
+public class DocumentDAO implements BasicDAOInterface {
+  @JsonProperty private static long jsonId = 0;
 
   private static final HashMap<String, JsonNode> DB2 = new HashMap<>();
 
-  private static final HashMap<String, User> users = new HashMap<>();
-
-  private static final JsonDAO dao = new JsonDAO();
+  private static final DocumentDAO dao = new DocumentDAO();
 
   @Autowired
-  private JsonDAO() {
+  private DocumentDAO() {
     importDataAndClearExisting("DataBaseSchema.txt");
-    User u = new User("admin", "admin");
-    u.setAdmin(true);
-    users.put("admin", u);
   }
 
-  public static JsonDAO getInstance() {
+  public static DocumentDAO getInstance() {
     return dao;
   }
 
-  @Override
-  public User getUser(String user) {
-    return users.get(user);
-  }
-
-  @Override
-  public synchronized void addUsers(User user) {
-    users.put(user.getUsername(), user);
-    for (User u : users.values()) {
-      System.out.println(u.getUsername());
-    }
-  }
-
-  public boolean containUser(String username){
-    return users.containsKey(username);
-  }
-
   public static synchronized long generateId() {
-    return JsonId++;
+    return jsonId++;
   }
 
-  public static void resetId() {
-    JsonId = 0;
+  private static void resetId() {
+    jsonId = 0;
   }
 
   @Override
@@ -104,6 +83,7 @@ public class JsonDAO implements DAOInterface {
       FileUtils.writeLines(new File(path), retrieveAll());
     } catch (IOException e) {
       e.printStackTrace();
+      System.out.println("error while exporting ");
     }
   }
 
@@ -116,11 +96,11 @@ public class JsonDAO implements DAOInterface {
         String columns = scanner.nextLine();
         JsonNode node = Json.parse(columns);
         DB2.put(node.get("id").asText(), node);
-        JsonId = Long.parseLong(node.get("id").asText());
+        jsonId = Long.parseLong(node.get("id").asText());
       }
-    } catch (Exception FileNotFoundException) {
+    } catch (IOException fileNotFoundException) {
       System.out.println("no such file exits");
-      FileNotFoundException.printStackTrace();
+      fileNotFoundException.printStackTrace();
     }
   }
 
@@ -129,7 +109,8 @@ public class JsonDAO implements DAOInterface {
     return new ArrayList<>(DB2.values());
   }
 
-  public static JsonNode findById(String id) {
+  @Override
+  public JsonNode findById(String id) {
     return DB2.get(id);
   }
 }

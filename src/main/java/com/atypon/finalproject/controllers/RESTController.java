@@ -1,7 +1,6 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.json.JsonDAO;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.atypon.finalproject.database.DocumentDAO;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/documents")
 public class RESTController {
-  private final JsonDAO dao = JsonDAO.getInstance();
+  private final DocumentDAO dao = DocumentDAO.getInstance();
 
   public RESTController() {}
 
@@ -50,12 +49,12 @@ public class RESTController {
   }
 
   @PutMapping("/update/{id}")
-  public ResponseEntity<String> updateJson(@PathVariable String id, @Validated @RequestBody String newJson) {
+  public ResponseEntity<String> updateJson(
+      @PathVariable String id, @Validated @RequestBody String newJson) {
     if (dao.containsJson(id)) {
-      dao.updateJson(id,newJson);
+      dao.updateJson(id, newJson);
       return ResponseEntity.ok(id);
     }
     return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
   }
-
 }

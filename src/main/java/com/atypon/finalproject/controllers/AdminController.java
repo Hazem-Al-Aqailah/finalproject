@@ -1,20 +1,17 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.json.JsonDAO;
-import com.atypon.finalproject.users.UserManger;
-import com.atypon.finalproject.users.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.atypon.finalproject.database.DocumentDAO;
+import com.atypon.finalproject.manger.UserManger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
 public class AdminController {
 
-  JsonDAO dao = JsonDAO.getInstance();
+  DocumentDAO dao = DocumentDAO.getInstance();
+  UserManger userManger = UserManger.getManger();
 
   @GetMapping(value = "/welcome-admin")
   public String welcomeAdmin() {
@@ -42,18 +39,18 @@ public class AdminController {
 
   @PostMapping(value = "addUser")
   public String addUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String pass,Model model) {
-   if (dao.containUser(username)){
+   if (UserManger.containUser(username)){
      model.addAttribute("errorMessage","this user already exists");
      return "welcome-admin";
    }
-    UserManger.addUser(username,pass);
+    userManger.addUser(username,pass);
     return "redirect:welcome-admin";
   }
 
   @PostMapping(value = "giveUserWrite")
   public String giveUserWrite(@RequestParam(name = "username") String username,Model model) {
     try{
-    UserManger.giveUserWritePrivilege(username);}
+    userManger.giveUserWritePrivilege(username);}
     catch (NullPointerException e){
       e.printStackTrace();
       model.addAttribute("errorMessage","no such user exists");

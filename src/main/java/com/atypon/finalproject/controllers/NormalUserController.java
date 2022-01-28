@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class NormalUserController {
 
-    @GetMapping(value = "welcome-user-reader")
-    public String welcomeUserReader(){
-        return "welcome-user-reader";
-    }
+  @GetMapping(value = "welcome-user-reader")
+  public String welcomeUserReader() {
+    return "welcome-user-reader";
+  }
 }

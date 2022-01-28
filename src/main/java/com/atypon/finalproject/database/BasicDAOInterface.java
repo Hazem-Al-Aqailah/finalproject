@@ -1,16 +1,12 @@
-package com.atypon.finalproject.json;
+package com.atypon.finalproject.database;
 
-import com.atypon.finalproject.users.User;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
-public interface DAOInterface {
+public interface BasicDAOInterface {
 
-
-  User getUser(String user);
-
-  void addUsers(User user);
+  JsonNode findById(String id);
 
   void storeJson(String... jsons);
 
