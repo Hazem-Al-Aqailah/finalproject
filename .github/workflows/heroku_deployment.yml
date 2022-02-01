@@ -24,11 +24,6 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      - name: list the directory content
-        run: |
-            cd target 
-            ls -al
-            java -jar TestCI-1.0-SNAPSHOT.jar
       - name: Push To DockerHub
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
