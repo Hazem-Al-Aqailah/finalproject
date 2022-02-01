@@ -15,14 +15,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Deploy to Heroku
-      uses: AkhileshNS/heroku-deploy@v3.12.12
-      with:
-        # This will be used for authentication. You can find it in your heroku homepage account settings
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        # Email that you use with heroku
-        heroku_email: ${{secrets.HEROKU_EMAIL}}
-        # The appname to use for deploying/updating
-        heroku_app_name:  ${{secrets.HEROKU_APP_NAME}}
-    
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          # This will be used for authentication. You can find it in your heroku homepage account settings
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          # Email that you use with heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          # The appname to use for deploying/updating
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+      - name: Build and Push docker image
+          uses: mr-smithers-excellent/docker-build-push@v5
+          with:
+            image: hazem/master-node
+            registry: docker.io
+            dockerfile: Dockerfile.ci
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
