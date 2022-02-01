@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URLConnection;
 
 @Controller
@@ -29,13 +28,6 @@ public class AdminController {
     return "welcome-admin";
   }
 
-  //  @PostMapping(value = "exportSchema")
-  //  public String exportSchema(@RequestParam(name = "path") String exportPath) {
-  //    System.out.println(exportPath);
-  //    dao.exportDataBaseSchema(exportPath);
-  //    return "redirect:welcome-admin";
-  //  }
-
   @PostMapping(value = "exportSchema")
   public String exportSchema(HttpServletRequest request, HttpServletResponse response, Model model)
       throws IOException {
@@ -48,15 +40,15 @@ public class AdminController {
         mimeType = "application/octet-stream";
       }
       response.setContentType(mimeType);
-      // Here we have mentioned it to show as attachment
+      // send the file as an attachment
       response.setHeader(
           "Content-Disposition", String.format("attachment; filename=\"" + file.getName() + "\""));
       response.setContentLength((int) file.length());
 
-      InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-
-      FileCopyUtils.copy(inputStream, response.getOutputStream());
-      return "redirect:welcome-admin";
+      try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
+        return "redirect:welcome-admin";
+      }
     }
     model.addAttribute("errorMessage", "bad data or corrupt file");
     return "welcome-admin";
