@@ -4,7 +4,7 @@
 #ENTRYPOINT ["java","-jar","/app.jar"]
 
 #
-FROM centos
+FROM almalinux
 ENV JAVA_VERSION 8u31
 ENV BUILD_VERSION b13
 # Upgrading system
