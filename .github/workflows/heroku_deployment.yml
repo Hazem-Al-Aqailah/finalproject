@@ -25,7 +25,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           # The appname to use for deploying/updating
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-      - name: Push to Docker
+      - name: Push To DockerHub
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
           image: hazemaqilah/master-node
