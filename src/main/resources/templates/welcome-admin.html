@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      >
 <head>
     <meta charset="UTF-8">
     <title>welcome admin</title>
 </head>
 <body>
 <div class="box">
-    <form action="exportSchema" method="POST">
+    <form action="exportSchema" method="POST" >
         <span class="text-center">Export DataBase schema</span>
         <p class="error" th:text="${errorMessage}"></p>
-        <div class="input-container">
-            <input name="path" type="text" required="true">
-            <label>filename and type</label>
-        </div>
-        <button type="submit" class="btn">Submit</button>
+        <button type="submit" class="btn">Download</button>
     </form>
     <hr>
     <hr>
-    <form action="importSchema" method="POST">
+    <form action="importSchema" method="POST" enctype="multipart/form-data">
         <span class="text-center">Import DataBase schema</span>
         <div class="input-container">
-            <input name="path" type="text" required="true">
-            <label>filename and type</label>
+            <input name="fileUpload" type="file" required="true">
         </div>
-        <button type="submit" class="btn">Submit</button>
+        <button class="btn" type="submit" >upload</button>
     </form>
     <hr>
     <hr>

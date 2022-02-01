@@ -9,10 +9,10 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +101,30 @@ public class DocumentDAO implements BasicDAOInterface {
     } catch (IOException fileNotFoundException) {
       System.out.println("no such file exits");
       fileNotFoundException.printStackTrace();
+    }
+  }
+
+  public void addToDB(String s) {
+    try {
+      System.out.println(s);
+      JsonNode node = Json.parse(s);
+      DB2.put(node.get("id").asText(), node);
+      jsonId = Long.parseLong(node.get("id").asText());
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public synchronized void multipart(MultipartFile file) {
+    try (InputStream inputStream = file.getInputStream(); ) {
+      DB2.clear();
+      resetId();
+      new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+          .lines()
+          .forEach(this::addToDB);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("error in multi part file");
     }
   }
 

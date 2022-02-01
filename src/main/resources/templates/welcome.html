@@ -2,12 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>welcome user</title>
+    <title>ResetPass</title>
 </head>
 <body>
 <div class="box">
-    <span class="text-center">Available Node</span>
-    <p class="node" th:text="${link}"/>
+    <form action="read" method="POST">
+        <button type="submit" class="btn">Read</button>
+    </form>
+    <form action="write" method="POST">
+        <button type="submit" class="btn">Write</button>
+    </form>
 </div>
 </body>
 <style>
@@ -29,13 +33,14 @@
         text-align: center;
     }
 
-    .node {
+    .error {
         color: #ffffff;
-        margin-bottom: 25px;
+        background-color: red;
+        text-transform: uppercase;
+        margin-bottom: 20px;
         font-size: 12px;
         display: block;
         text-align: center;
-        position: relative;
     }
 
     .box {
