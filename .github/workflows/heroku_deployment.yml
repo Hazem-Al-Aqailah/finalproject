@@ -28,7 +28,7 @@ jobs:
       - name: Push to Docker
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: hazem/master-node
+          image: hazemaqilah/master-node
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
