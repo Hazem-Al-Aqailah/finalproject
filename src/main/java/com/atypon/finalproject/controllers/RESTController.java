@@ -1,6 +1,6 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.communicator.Communicator;
+import com.atypon.finalproject.utility.Communicator;
 import com.atypon.finalproject.database.DocumentDAO;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.HttpStatus;
@@ -38,8 +38,14 @@ public class RESTController {
     if (jsonSource == null) {
       return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
-    dao.storeJson(jsonSource);
-    return ResponseEntity.ok(jsonSource);
+    try {
+      dao.storeJson(jsonSource);
+      return ResponseEntity.ok(jsonSource);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("error during parsing the json ");
+    }
+    return new ResponseEntity<>(jsonSource, HttpStatus.BAD_REQUEST);
   }
 
   @DeleteMapping("/delete/{id}")
@@ -61,11 +67,27 @@ public class RESTController {
     return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
   }
 
-// this mapping is only used to connect with the slave node upon their lunch
+  // this mapping is only used to connect with the slave node upon their lunch
   @PostMapping(value = "/receiver")
-  public void addNode(HttpServletRequest request){
-    int port = request.getRemotePort()+1;
+  public void addNode(HttpServletRequest request) {
+    System.out.println(request.getServerName());
+    System.out.println(request.getRemoteHost());
+    System.out.println(request.getContextPath());
+    System.out.println(request.getPathInfo());
+    System.out.println(request.getRequestURI());
+    System.out.println(request.getRequestURL().toString());
+    System.out.println(request.getPathTranslated());
+    System.out.println(request.getLocalAddr());
+    System.out.println(request.getLocalName());
+    System.out.println(request.getLocalPort());
+    System.out.println(request.getProtocol());
+    System.out.println(request.getRemoteAddr());
+    System.out.println(request.getRemoteHost());
+    System.out.println(request.getRemoteUser());
+
+    request.getRemoteHost();
+    int port = request.getRemotePort() + 1;
     Communicator.addSlaveNode(port);
-    System.out.println("node with port "+port+" is connected");
+    System.out.println("node with port " + port + " is connected");
   }
 }

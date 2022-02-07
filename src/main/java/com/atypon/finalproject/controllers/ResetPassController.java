@@ -30,9 +30,8 @@ public class ResetPassController {
         return "redirect:login";
       }
     } catch (NullPointerException e) {
-      e.printStackTrace();
+      model.addAttribute("errorMessage", "Wrong Credentials !!");
     }
-    model.addAttribute("errorMessage", "Wrong Credentials !!");
     return "resetpass";
   }
 }

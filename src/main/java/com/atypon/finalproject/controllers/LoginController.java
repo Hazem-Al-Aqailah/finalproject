@@ -1,8 +1,7 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.database.DocumentDAO;
 import com.atypon.finalproject.database.UserDAO;
-import com.atypon.finalproject.users.User;
+import com.atypon.finalproject.models.User;
 import com.atypon.finalproject.manger.UserManger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

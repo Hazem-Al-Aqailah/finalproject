@@ -1,6 +1,6 @@
 package com.atypon.finalproject.database;
 
-import com.atypon.finalproject.users.User;
+import com.atypon.finalproject.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -13,9 +13,9 @@ public class UserDAO implements UserDAOInterface {
   private static final UserDAO userDao = new UserDAO();
 
   private UserDAO() {
-    User u = new User("admin", "admin");
-    u.setAdmin(true);
-    users.put("admin", u);
+    User admin = new User("admin", "admin");
+    admin.setAdmin(true);
+    users.put("admin", admin);
   }
 
   public static UserDAO getInstance() {

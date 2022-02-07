@@ -1,13 +1,13 @@
-package com.atypon.finalproject.parser;
+package com.atypon.finalproject.utility;
 
-import com.atypon.finalproject.database.DocumentDAO;
+import com.atypon.finalproject.database.IDGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class Json {
+public class Json implements Utility {
 
   private static ObjectMapper objectMapper = getDefaultObjectMapper();
 
@@ -20,7 +20,7 @@ public class Json {
 
   public static JsonNode parseAndGenerateId(String src) throws JsonProcessingException {
     JsonNode json =  objectMapper.readTree(src);
-    ((ObjectNode) json).put("id", DocumentDAO.generateId());
+    ((ObjectNode) json).put("id", IDGenerator.generateId());
     return json;
   }
 

@@ -2,6 +2,7 @@ package com.atypon.finalproject.controllers;
 
 import com.atypon.finalproject.database.DocumentDAO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,13 @@ public class WriterUserController {
   }
 
   @PostMapping(value = "addToDataBaseUser")
-  public String addToDataBaseUser(@RequestParam(name = "jsonSource") String jsonSource) {
-    dao.storeJson(jsonSource);
-    return "redirect:welcome-user-writer";
+  public String addToDataBaseUser(
+      @RequestParam(name = "jsonSource") String jsonSource, Model model) {
+    try {
+      dao.storeJson(jsonSource);
+    } catch (Exception e) {
+      model.addAttribute("errorMessage", "Bad Json");
+    }
+    return "welcome-user-writer";
   }
 }

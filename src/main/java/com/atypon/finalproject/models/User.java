@@ -1,4 +1,5 @@
-package com.atypon.finalproject.users;
+package com.atypon.finalproject.models;
+
 
 public class User {
   protected String username ;

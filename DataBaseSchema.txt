@@ -4,4 +4,4 @@
 {"author":"yosef","schema":"book","date":"1111","subject":"politics","body":"maths is maths","id":3}
 {"author":"ahmad","schema":"paper","date":"2002","subject":"sports","body":"maths is maths","id":4}
 {"author":"mohammed","schema":"paper","date":"2040","subject":"chemistry","body":"maths is maths","id":5}
-{"author":"mosa","schema":"book","date":"2069","subject":"maths","body":"maths is maths","id":6}
+{"author":"hazem","schema":"book","date":"2069","subject":"maths","body":"maths is maths","id":6}

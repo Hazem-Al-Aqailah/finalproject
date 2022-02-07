@@ -1,6 +1,6 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.communicator.Communicator;
+import com.atypon.finalproject.utility.Communicator;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.atypon.finalproject.communicator;
+package com.atypon.finalproject.utility;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -7,7 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-public class Communicator {
+public class Communicator implements Utility {
   private static final ArrayList<String> slaveNodes = new ArrayList<>();
 
   private static int slaveNodesPointer = 0;

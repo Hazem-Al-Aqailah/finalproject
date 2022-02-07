@@ -1,6 +1,6 @@
 package com.atypon.finalproject.database;
 
-import com.atypon.finalproject.users.User;
+import com.atypon.finalproject.models.User;
 
 public interface UserDAOInterface {
 

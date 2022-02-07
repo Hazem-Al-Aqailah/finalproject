@@ -1,8 +1,10 @@
 package com.atypon.finalproject.database;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 public interface BasicDAOInterface {
 
@@ -16,9 +18,5 @@ public interface BasicDAOInterface {
 
   void updateJson(String id, String json);
 
-  void exportDataBaseSchema(String path);
 
-  void importDataAndClearExisting(String path);
-
-  List<JsonNode> retrieveAll();
 }
