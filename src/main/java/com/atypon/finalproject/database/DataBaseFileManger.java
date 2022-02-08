@@ -17,11 +17,11 @@ import static com.atypon.finalproject.database.IDGenerator.*;
 
 public class DataBaseFileManger implements FileManger {
 
-  private DataBaseFileManger(){}
+  private DataBaseFileManger() {}
 
   private static final DataBaseFileManger dataBaseFileManger = new DataBaseFileManger();
 
-  public static DataBaseFileManger getInstance(){
+  public static DataBaseFileManger getInstance() {
     return dataBaseFileManger;
   }
 
@@ -34,7 +34,21 @@ public class DataBaseFileManger implements FileManger {
       System.out.println("error while exporting ");
     }
   }
-  // import/export database schema
+
+  @Override
+  public synchronized void importDataAndClearExisting(MultipartFile file) {
+    try (InputStream inputStream = file.getInputStream(); ) {
+      DB2.clear();
+      resetId();
+      new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+          .lines()
+          .forEach(this::addToDBHashMap);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.out.println("error while importing data form uploaded file");
+    }
+  }
+
   @Override
   public synchronized void exportDataBaseSchema(HttpServletResponse response) {
     createDataBaseDownloadFile();
@@ -59,20 +73,6 @@ public class DataBaseFileManger implements FileManger {
     } catch (IOException e) {
       e.printStackTrace();
       System.out.println("error while exporting ");
-    }
-  }
-
-  @Override
-  public synchronized void importDataAndClearExisting(MultipartFile file) {
-    try (InputStream inputStream = file.getInputStream(); ) {
-      DB2.clear();
-      resetId();
-      new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-          .lines()
-          .forEach(this::addToDBHashMap);
-    } catch (IOException e) {
-      e.printStackTrace();
-      System.out.println("error in multi part file");
     }
   }
 

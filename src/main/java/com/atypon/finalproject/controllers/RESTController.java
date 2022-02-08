@@ -70,22 +70,6 @@ public class RESTController {
   // this mapping is only used to connect with the slave node upon their lunch
   @PostMapping(value = "/receiver")
   public void addNode(HttpServletRequest request) {
-    System.out.println(request.getServerName());
-    System.out.println(request.getRemoteHost());
-    System.out.println(request.getContextPath());
-    System.out.println(request.getPathInfo());
-    System.out.println(request.getRequestURI());
-    System.out.println(request.getRequestURL().toString());
-    System.out.println(request.getPathTranslated());
-    System.out.println(request.getLocalAddr());
-    System.out.println(request.getLocalName());
-    System.out.println(request.getLocalPort());
-    System.out.println(request.getProtocol());
-    System.out.println(request.getRemoteAddr());
-    System.out.println(request.getRemoteHost());
-    System.out.println(request.getRemoteUser());
-
-    request.getRemoteHost();
     int port = request.getRemotePort() + 1;
     Communicator.addSlaveNode(port);
     System.out.println("node with port " + port + " is connected");
