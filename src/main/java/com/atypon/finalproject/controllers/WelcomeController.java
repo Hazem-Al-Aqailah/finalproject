@@ -9,20 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class WelcomeController {
 
-    @GetMapping(value = "/")
-    public String redirectToWelcome(){
-        return "redirect:welcome";
-    }
-    @GetMapping(value = "/welcome")
-    public String selectAction(){
-        return "welcome";
-    }
-    @PostMapping(value = "read")
-    public String redirectRead(){
-        return "redirect:welcome-user-reader";
-    }
-    @PostMapping(value = "write")
-    public String redirectWrite(){
-        return "redirect:login";
-    }
+  @GetMapping(value = "/")
+  public String redirectToWelcome() {
+    return "redirect:welcome";
+  }
+
+  @GetMapping(value = "/welcome")
+  public String selectAction() {
+    return "welcome";
+  }
+
+  @PostMapping(value = "read")
+  public String redirectRead() {
+    return "redirect:welcome-user-reader";
+  }
+
+  @PostMapping(value = "write")
+  public String redirectWrite() {
+    return "redirect:login";
+  }
 }

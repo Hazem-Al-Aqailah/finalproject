@@ -29,7 +29,7 @@ public class ResetPassController {
         userManger.resetPass(name, newPass);
         return "redirect:login";
       }
-    } catch (NullPointerException e) {
+    } catch (Exception e) {
       model.addAttribute("errorMessage", "Wrong Credentials !!");
     }
     return "resetpass";

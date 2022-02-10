@@ -38,7 +38,7 @@ public class DataBaseFileManger implements FileManger {
   @Override
   public synchronized void importDataAndClearExisting(MultipartFile file) {
     try (InputStream inputStream = file.getInputStream(); ) {
-      DB2.clear();
+      DB.clear();
       resetId();
       new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
           .lines()
@@ -67,7 +67,7 @@ public class DataBaseFileManger implements FileManger {
     }
   }
 
-  private synchronized void createDataBaseDownloadFile() {
+  private void createDataBaseDownloadFile() {
     try {
       FileUtils.writeLines(new File("./DataBaseDownloadFile.txt"), retrieveAll());
     } catch (IOException e) {
@@ -76,11 +76,11 @@ public class DataBaseFileManger implements FileManger {
     }
   }
 
-  private synchronized void addToDBHashMap(String s) {
+  private void addToDBHashMap(String s) {
     try {
       System.out.println(s);
       JsonNode node = Json.parse(s);
-      DB2.put(node.get("id").asText(), node);
+      DB.put(node.get("id").asText(), node);
       jsonId = Long.parseLong(node.get("id").asText());
     } catch (JsonProcessingException e) {
       e.printStackTrace();

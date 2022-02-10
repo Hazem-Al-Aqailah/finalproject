@@ -5,10 +5,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 
 public interface FileManger {
-    void exportDataBaseSchema(HttpServletResponse response);
+  void exportDataBaseSchema(HttpServletResponse response);
 
-    void updateDataBaseFile();
+  void updateDataBaseFile();
 
-    void importDataAndClearExisting(MultipartFile file);
-
+  void importDataAndClearExisting(MultipartFile file);
 }

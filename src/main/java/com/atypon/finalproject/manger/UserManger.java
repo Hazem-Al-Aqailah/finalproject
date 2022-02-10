@@ -51,7 +51,7 @@ public class UserManger implements Manger {
       if (u.isFirstLogin()) u.setPassword(pass);
       u.setFirstLogin(false);
       userDao.addUsers(u);
-    } catch (Exception e) {
+    } catch (NullPointerException e) {
       e.printStackTrace();
       System.out.println("no such user exists!");
     }

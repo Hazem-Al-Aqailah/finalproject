@@ -1,9 +1,8 @@
 package com.atypon.finalproject.models;
 
-
-public class User {
-  protected String username ;
-  protected String password ;
+public class User implements Model {
+  protected String username;
+  protected String password;
   protected boolean canWrite = false;
   protected boolean isAdmin = false;
   private boolean firstLogin = true;
@@ -41,14 +40,11 @@ public class User {
     isAdmin = admin;
   }
 
-  public boolean isFirstLogin(){
+  public boolean isFirstLogin() {
     return firstLogin;
   }
 
   public void setFirstLogin(boolean firstLoginBoolean) {
     firstLogin = firstLoginBoolean;
   }
-
-
-
 }
