@@ -1,7 +1,7 @@
 package com.atypon.finalproject.controllers;
 
 import com.atypon.finalproject.database.DataBaseFileManger;
-import com.atypon.finalproject.utility.Communicator;
+import com.atypon.finalproject.utility.SlaveCommunicator;
 import com.atypon.finalproject.database.DocumentDAO;
 import com.atypon.finalproject.manger.UserManger;
 
@@ -40,7 +40,7 @@ public class AdminController {
   public String importSchema(@RequestParam(name = "fileUpload") MultipartFile file, Model model) {
     try {
       dataBaseFileManger.importDataAndClearExisting(file);
-      Communicator.updateNodes();
+      SlaveCommunicator.updateNodes();
     } catch (Exception e) {
       model.addAttribute("errorMessage", "bad data or corrupt file");
     }
@@ -73,7 +73,7 @@ public class AdminController {
   public String addToDataBase(@RequestParam(name = "jsonSource") String jsonSource, Model model) {
     try {
       dao.storeJson(jsonSource);
-      Communicator.updateNodes();
+      SlaveCommunicator.updateNodes();
     } catch (Exception e) {
       model.addAttribute("errorMessage", "Bad Json");
     }
@@ -84,7 +84,7 @@ public class AdminController {
   public String deleteFromDataBase(@RequestParam(name = "id") String id, Model model) {
     if (dao.containsJson(id)) {
       dao.deleteJson(id);
-      Communicator.updateNodes();
+      SlaveCommunicator.updateNodes();
     }
     model.addAttribute("errorMessage", "Json for given ID does not exist");
     return "welcome-admin";
@@ -97,7 +97,7 @@ public class AdminController {
       Model model) {
     if (dao.containsJson(id)) {
       dao.updateJson(id, json);
-      Communicator.updateNodes();
+      SlaveCommunicator.updateNodes();
     }
     model.addAttribute("errorMessage", "Json for given ID does not exist, or bad Json");
     return "welcome-admin";

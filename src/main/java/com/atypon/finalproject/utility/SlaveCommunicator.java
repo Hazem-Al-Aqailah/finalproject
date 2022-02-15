@@ -7,12 +7,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-public class Communicator implements Utility {
+public class SlaveCommunicator implements Utility {
   private static final ArrayList<String> slaveNodes = new ArrayList<>();
 
   private static int slaveNodesPointer = 0;
 
-  private Communicator() {}
+  private SlaveCommunicator() {}
 
   public static void addSlaveNode(int port) {
     String url = "http://localhost:" + port + "/api/documents";
@@ -43,21 +43,21 @@ public class Communicator implements Utility {
   }
 
   public static void updateNodes() {
-    for (String url : slaveNodes) {
+    for (String nodeUrl : slaveNodes) {
       try {
-        sendToNode(url, "update");
+        sendToNode(nodeUrl, "update");
       } catch (Exception e) {
         e.printStackTrace();
-        System.out.println("failed to connect with the node " + url);
+        System.out.println("failed to connect with the node " + nodeUrl);
       }
     }
   }
 
-  private static void sendToNode(String url, String message) throws URISyntaxException {
+  private static void sendToNode(String nodeUrl, String message) throws URISyntaxException {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     // adding "/update" to the base uri of the slave node
-    URI uri = new URI(url + "/update");
+    URI uri = new URI(nodeUrl + "/update");
     HttpEntity<String> formEntity = new HttpEntity<>(message, headers);
     RestTemplate template = new RestTemplate();
     template.exchange(uri, HttpMethod.POST, formEntity, String.class);

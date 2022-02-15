@@ -1,6 +1,6 @@
 package com.atypon.finalproject.controllers;
 
-import com.atypon.finalproject.utility.Communicator;
+import com.atypon.finalproject.utility.SlaveCommunicator;
 import com.atypon.finalproject.database.DocumentDAO;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class RESTController {
   @PostMapping(value = "/receiver")
   public void addNode(HttpServletRequest request) {
     int port = request.getRemotePort() + 1;
-    Communicator.addSlaveNode(port);
+    SlaveCommunicator.addSlaveNode(port);
     System.out.println("node with port " + port + " is connected");
   }
 }
